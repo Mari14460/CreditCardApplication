@@ -24,6 +24,7 @@ class CallbackTest {
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
+        driver = new ChromeDriver();
     }
 
     @AfterEach
@@ -35,13 +36,12 @@ class CallbackTest {
     @Test
     void positiveTest() throws InterruptedException {
         driver.get("http://localhost:9999");
-        List<WebElement> input = driver.findElements(By.className("input__control"));
-        input.get(0).sendKeys("Марина Зинченко");
-        input.get(1).sendKeys("+79111234567");
+        driver.findElement(By.name("name")).sendKeys("Марина Зинченко-Петрова");
+        driver.findElement(By.name("phone")).sendKeys("+79111234567");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = driver.findElement(By.className("paragraph")).getText().trim();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText().trim();
         assertEquals(expected, actual);
     }
 }
