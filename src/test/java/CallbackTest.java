@@ -1,3 +1,4 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,12 +11,13 @@ class CallbackTest {
     private WebDriver driver;
     @BeforeAll
     static void setUpAll() {
-        // убедитесь, что файл chromedriver.exe расположен именно в каталоге C:\tmp
-        System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
+        // System.setProperty("webdriver.chrome.driver", "./driver/chromedriver");
+        WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
     void setUp() {
+
         driver = new ChromeDriver();
     }
 
